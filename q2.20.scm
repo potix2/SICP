@@ -1,0 +1,11 @@
+(use srfi-1)
+(define (same-parity x . l)
+	(if (even? x)
+		(cons x (filter even? l))
+		(cons x (filter odd? l))))
+(define (same-parity-test)
+	(and
+		(equal? (same-parity 1 2 3 4 5) (list 1 3 5))
+		(equal? (same-parity 2 3 4 5 6) (list 2 4 6))))
+(display (same-parity-test))
+(newline)

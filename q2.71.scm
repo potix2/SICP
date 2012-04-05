@@ -1,0 +1,37 @@
+(load "./q2.69.scm")
+(define (enumerate-interval low high)
+	(if (> low high)
+		'()
+		(cons low (enumerate-interval (+ low 1) high))))
+(define alphabet
+	'(a b c d e f g h i j k l m n o p q r s t u v w x y z))
+(define (choice n lst)
+	(cond ((null? lst) (error "out of range -- CHOICE"))
+		  ((= n 1) (car lst))
+		  (else (choice (- n 1) (cdr lst)))))
+(define (generate-n-pairs n)
+	(map
+		(lambda (x) (list (choice x alphabet) (expt 2 (- x 1))))
+		(enumerate-interval 1 n)))
+(define (print-huffman-tree tree)
+	(define (print-indent n)
+		(display " ")
+		(if (= n 0)
+			#t
+			(print-indent (- n 1))))
+	(define (print-leaf leaf depth)
+		(print-indent depth)
+		(display leaf)
+		(newline))
+	(define (print-branch branch depth)
+		(cond ((leaf? branch) (print-leaf branch depth))
+			  (else (print-branch (left-branch branch) (+ 1 depth))
+			  		(print-branch (right-branch branch) (+ 1 depth)))))
+	(print-branch tree 0))
+(print-huffman-tree (generate-huffman-tree (generate-n-pairs 5)))
+(newline)
+(print-huffman-tree (generate-huffman-tree (generate-n-pairs 10)))
+(newline)
+;解答
+;最高頻度は1 bit
+;最低頻度はn-1 bit

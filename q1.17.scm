@@ -1,0 +1,20 @@
+(define (double x) (+ x x))
+(define (halve x)
+	(if (even? x)
+		(/ x 2)
+		x
+	)
+)
+;(define (multi a b)
+;	(if (= b 0)
+;		0
+;		(+ a (* a (- b 1)))
+;	)
+;)
+(define (multi a b)
+	(cond
+		((= b 0) 0)
+		((even? b) (double (multi a (halve b))))
+		(else (+ a (multi a (- b 1))))
+	)
+)

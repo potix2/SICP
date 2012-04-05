@@ -1,0 +1,78 @@
+(define (add-interval x y)
+	(make-interval (+ (lower-bound x) (lower-bound y))
+				   (+ (upper-bound x) (upper-bound y))))
+; Alyssa original
+;(define (mul-interval x y)
+;	(let ((p1 (* (lower-bound x) (lower-bound y)))
+;		  (p2 (* (lower-bound x) (upper-bound y)))
+;		  (p3 (* (upper-bound x) (lower-bound y)))
+;		  (p4 (* (upper-bound x) (upper-bound y))))
+;		(make-interval (min p1 p2 p3 p4)
+;					   (max p1 p2 p3 p4))))
+; q2.11
+(define (mul-interval x y)
+	(let ((lx (lower-bound x))
+		  (ux (upper-bound x))
+		  (ly (lower-bound y))
+		  (uy (upper-bound y)))
+		(cond
+			((and (>  lx 0) (>  ux 0) (>  ly 0) (>  uy 0)) (make-interval (* lx ly) (* ux uy)))
+		 	((and (>  lx 0) (>  ux 0) (<= ly 0) (>  uy 0)) (make-interval (* ux ly) (* ux uy)))
+			((and (>  lx 0) (>  ux 0) (<= ly 0) (<= uy 0)) (make-interval (* ux ly) (* lx uy)))
+			((and (<= lx 0) (>  ux 0) (>  ly 0) (>  uy 0)) (make-interval (* lx uy) (* ux uy)))
+			((and (<= lx 0) (>  ux 0) (<= ly 0) (>  uy 0)) (if (< (* lx ly) (* ux uy))
+															(if (< (* lx uy) (* ux ly))
+																(make-interval (* lx uy) (* ux uy))
+																(make-interval (* ux ly) (* ux uy)))
+															(if (< (* lx uy) (* ux ly))
+																(make-interval (* lx uy) (* lx ly))
+																(make-interval (* ux ly) (* lx ly)))))
+			((and (<= lx 0) (>  ux 0) (<= ly 0) (<= uy 0)) (make-interval (* ux ly) (* lx ly)))
+			((and (<= lx 0) (<= ux 0) (>  ly 0) (>  uy 0)) (make-interval (* lx uy) (* ux ly)))
+			((and (<= lx 0) (<= ux 0) (<= ly 0) (>  uy 0)) (make-interval (* lx uy) (* lx ly)))
+			((and (<= lx 0) (<= ux 0) (<= ly 0) (<= uy 0)) (make-interval (* ux uy) (* lx ly))))))
+(define (equal-interval x y)
+	(let ((lx (lower-bound x))
+		  (ux (upper-bound x))
+		  (ly (lower-bound y))
+		  (uy (upper-bound y)))
+		(and (= lx ly) (= ux uy))))
+
+; Alyssa original
+;(define (div-interval x y)
+;	(mul-interval x
+;		(make-interval (/ 1.0 (upper-bound y))
+;					   (/ 1.0 (lower-bound y)))))
+; q2.10
+(define (div-interval x y)
+	(if (<= (* (lower-bound y) (upper-bound x)) 0)
+		(raise "divided by zero")
+		(mul-interval x
+			(make-interval (/ 1.0 (upper-bound y))
+						   (/ 1.0 (lower-bound y))))))
+
+(define (make-interval a b)
+	(cons a b))
+(define (lower-bound i) (min (car i) (cdr i)))
+(define (upper-bound i) (max (car i) (cdr i)))
+
+; q2.8
+(define (sub-interval x y)
+	(make-interval (- (lower-bound x) (upper-bound y))
+				   (- (upper-bound x) (lower-bound y))))
+; q2.9
+(define (width-interval x)
+	(/ (- (upper-bound x) (lower-bound x)) 2))
+
+; q2.12
+(define (make-center-width c w)
+	(make-interval (- c w) (+ c w)))
+(define (center-interval i)
+	(/ (+ (upper-bound i) (lower-bound i)) 2))
+(define (print-interval i)
+	(display "[")
+	(display (lower-bound i))
+	(display ",")
+	(display (upper-bound i))
+	(display "]")
+	(newline))

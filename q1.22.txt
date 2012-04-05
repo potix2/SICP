@@ -1,0 +1,15 @@
+1009 *** #<time-duration 0.000008000>
+1013 *** #<time-duration 0.000008000>
+1019 *** #<time-duration 0.000008000>
+
+10007 *** #<time-duration 0.000025000>
+10009 *** #<time-duration 0.000025000>
+10037 *** #<time-duration 0.000025000>
+
+100003 *** #<time-duration 0.000079000>
+100019 *** #<time-duration 0.000079000>
+100043 *** #<time-duration 0.000079000>
+
+1000003 *** #<time-duration 0.000245000>
+1000033 *** #<time-duration 0.000245000>
+1000037 *** #<time-duration 0.000245000>

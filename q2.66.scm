@@ -1,0 +1,30 @@
+(load "./q2.65.scm")
+(define (make-record key data)
+	(cons key data))
+(define (key record) (car record))
+(define (data record) (cdr record))
+
+(define (lookup given-key set-of-records)
+	(if (null? set-of-records)
+		#f
+		(let ((x (key (car set-of-records))))
+			(cond ((= x given-key) (car set-of-records))
+				  ((< given-key x) (lookup given-key (left-branch set-of-records)))
+				  (else (lookup given-key (right-branch set-of-records)))))))
+(define tree-of-records
+	(list->tree
+		(list (make-record 1 'misako)
+			  (make-record 2 'shoko)
+			  (make-record 3 'sayaka)
+			  (make-record 4 'yuko)
+			  (make-record 5 'rina)
+			  (make-record 6 'rio)
+			  (make-record 7 'aiko))))
+(define (lookup-test)
+	(and
+		(equal? (data (lookup 2 tree-of-records)) 'shoko)
+		(equal? (data (lookup 5 tree-of-records)) 'rina)
+		(equal? (data (lookup 7 tree-of-records)) 'aiko)
+		(not (lookup 10 tree-of-records))
+))
+(display (lookup-test))

@@ -1,0 +1,7 @@
+(define (make-accumulator sum)
+	(lambda (val)
+		(begin (set! sum (+ sum val)) sum)))
+(define A (make-accumulator 5))
+(display (A 10))
+(newline)
+(display (A 10))

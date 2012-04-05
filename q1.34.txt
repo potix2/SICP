@@ -1,0 +1,20 @@
+gosh> (define (f g)
+(g 2))
+f
+gosh> (f square)
+4
+gosh> (f (lambda (z) (* z (+ z 1))))
+6
+gosh> (f f)
+*** ERROR: invalid application: (2 2)
+Stack Trace:
+_______________________________________
+gosh> 
+
+という結果になる。このエラーは、関数が来るべきところに値が現れたので評価が停止したという意味。
+この結果にたどり着くまでの計算過程を以下に示す。
+
+(f f)
+=> (lambda (g) (g 2)) (lambda (g) (g 2))
+=> ((lambda (g) (g 2)) 2)
+=> (2 2)

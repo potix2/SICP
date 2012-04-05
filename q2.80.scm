@@ -1,0 +1,6 @@
+(load "./calculus.scm")
+(install-scheme-number-package)
+(install-rational-package)
+(install-rectangular-package)
+(install-polar-package)
+(install-complex-package)

@@ -1,0 +1,16 @@
+(define (union-set set1 set2)
+	(if (or (null? set1) (null? set2))
+		(append set1 set2)
+		(let ((x1 (car set1)) (x2 (car set2)))
+			(cond ((= x1 x2) (cons x1 (union-set (cdr set1) (cdr set2))))
+				  ((< x1 x2) (cons x1 (union-set (cdr set1) set2)))
+				  ((< x2 x1) (cons x2 (union-set set1 (cdr set2))))))))
+
+(define (union-set-test)
+	(and
+		(equal? (union-set '() '(1 2 3)) '(1 2 3))
+		(equal? (union-set '(1 2 3) '()) '(1 2 3))
+		(equal? (union-set '(1 2) '(3 4)) '(1 2 3 4))
+		(equal? (union-set '(2 3) '(1 2)) '(1 2 3))
+))
+(display (union-set-test))

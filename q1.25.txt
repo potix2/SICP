@@ -1,0 +1,3 @@
+Alyssa P. Hackerのexpmodはベキ乗を求めてからremainderに渡しているが、
+オリジナルのexpmodは値がつどremainderがよびだされるのでremainderの引数が大きくならない。
+remainderの引数が大きくなるとその計算時間を無視出来なくなるため、Alyssaの実装は不適当。

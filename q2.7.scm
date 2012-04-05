@@ -1,0 +1,10 @@
+(load "./interval.scm")
+(define (interval-test)
+	(and
+		(= (lower-bound (make-interval 1 2)) 1)
+		(= (upper-bound (make-interval 1 2)) 2)
+		(= (lower-bound (make-interval 2 1)) 1)
+		(= (upper-bound (make-interval 2 1)) 2)
+		(= (lower-bound (make-interval 1 1)) 1)
+		(= (upper-bound (make-interval 1 1)) 1)))
+(print (interval-test))

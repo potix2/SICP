@@ -1,0 +1,11 @@
+(define (reverse l)
+	(if (null? l)
+		'()
+		(append (reverse (cdr l)) (list (car l)))))
+(define (reverse-test)
+	(and
+		(equal? (reverse (list 1 2 3 4 5)) (list 5 4 3 2 1))
+		(equal? (reverse (list 1)) (list 1))
+		(equal? (reverse '()) '())))
+(display (reverse-test))
+(newline)
